@@ -171,7 +171,7 @@ struct snake*putfood(struct snake*head,struct snake*food)
     return food;
 }
 
-void draw(struct snake*head,struct snake*food,int len,int step)
+void draw(struct snake*head,struct snake*food,int len,int step,int flag)
 {
     int i,x,y;
     struct snake*tmp;
@@ -187,7 +187,14 @@ void draw(struct snake*head,struct snake*food,int len,int step)
     }
     picture[head->x+head->y*16]=2;
     printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+    printf("a                                a\n");
     printf("a lenth:%-8d step:%-10d a\n",len,step);
+    printf("a                                a\n");
+    if (flag==0)
+        printf("a                                a\n");
+    else
+        printf("a      please input wasd         a\n");
+    printf("a                                a\n");
     printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
     for (y=0; y<16; y++)
     {
@@ -236,7 +243,7 @@ void snake()
     food->next=NULL;
     head=createsnake();
     food=putfood(head,food);
-    draw(head,food,len,step);
+    draw(head,food,len,step,1);
     while(1)
     {
         scanf("%c",&ch);
@@ -252,12 +259,12 @@ void snake()
             else
                 head=cuttail(head);
             step++;
-            draw(head,food,len,step);
+            draw(head,food,len,step,0);
             if (biteself(head)==1)
                 break;
         }
         else
-            printf("please input wasd\n");
+            draw(head,food,len,step,1);
     }
     freesnake(head,food);
 }
